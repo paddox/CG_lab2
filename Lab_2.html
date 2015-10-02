@@ -1,0 +1,115 @@
+<html>
+<head/>
+<body>
+	<p>Isobrasit mnogougolnik тЮ=5 с помощью алгоритма Брезенхема</p>
+	<p>Закрасить многоугольник методом закраски затравкой и методом пересечяения горизонтальных прямых со сторонами многоугольника</p>
+	<canvas id='less02' width='500' height='500'>
+		<script>
+			var canvas=document.getElementById('less02').getContext('2d');
+			var n=4;
+			function line(x1,y1,x2,y2)
+			{
+      				var dx = -1
+				if (x2-x1>=0) dx =1
+      				var dy = -1
+ 				if (y2-y1>=0) dy=1
+      				var lengthX = Math.abs(x2 - x1);
+      				var lengthY = Math.abs(y2 - y1);
+ 
+      				var length = lengthX
+				if(lengthY>lengthX) length = lengthY
+ 
+      				if (length == 0)
+      				{
+            				canvas.fillRect(x1, y1, 1,1);
+      				}
+ 
+      				if (lengthY <= lengthX)
+      				{
+            				// Начальные значения
+            				var x = x1;
+            				var y = y1;
+            				var d = -lengthX;
+ 				
+            				// Основной цикл
+            				length++;
+            				while(length--)
+            				{
+                  				canvas.fillRect(x, y, 1,1);
+                  				x += dx;
+                  				d += 2 * lengthY;
+                  				if (d > 0) {
+                        				d -= 2 * lengthX;
+                        				y += dy;
+                  				}
+            				}
+      				}
+      				else
+      				{
+            // Начальные значения
+            				var x = x1;
+            				var y = y1;
+            				var d = - lengthY;
+ 
+            // Основной цикл
+            				length++;
+            				while(length--)
+            				{
+                  				canvas.fillRect(x, y, 1,1);
+                  				y += dy;
+                  				d += 2 * lengthX;
+                  				if (d > 0) {
+                        				d -= 2 * lengthY;
+                        				x += dx;
+                  				}
+            				}
+      				}
+			}
+			var arr = [ 
+			/*[100, 50], 
+			[115, 80], 
+			[150, 80], 
+			[125, 100], 
+			[135, 130], 
+			[100, 110], 
+			[65, 130], 
+			[75, 100], 
+			[50, 80], 
+			[85, 80],*/
+			[0,0],
+			[0,100],
+			[100,100],
+			[150,50],
+			[100,0]
+			]; 
+			//canvas.beginPath(); 
+			for (var i = 0; i < n; i++) { 
+				var X1 = 200 + 100*Math.cos(0)
+				var Y1 = 200 + 100*Math.sin(0)
+				var Xi = 200 + 100*Math.cos(2*3.14*i/n)
+				var Yi = 200 + 100*Math.sin(2*3.14*i/n)
+				var X_i1 = 200 + 100*Math.cos(2*3.14*(i+1)/n)
+				var Y_i1 = 200 + 100*Math.sin(2*3.14*(i+1)/n)
+				if (i!=(n-1)) line(Xi,Yi,X_i1,Y_i1);
+				else line(Xi,Yi,X1,Y1);
+			// Ставим точку на исходную позицию 
+			//if (i == 0) canvas.moveTo(arr[i][0], arr[i][1]); 
+			// Рисуем линии от точки к точке 
+			//else canvas.lineTo(arr[i][0], arr[i][1]); 
+			} 
+			// Задаем цвет заливки в формате RGBA 
+			canvas.fillStyle = "rgb(255,128,128)"; 
+			// Зальем полученный многоугольник цветом 
+			canvas.fill(); 
+			/*var x,y
+			function SetXY() {
+				x=event.x
+				y=event.y
+				alert(x+y)
+			var arr=[]
+			canvas.addEventListener('click',setXY,false)
+			ctx.fillRect(x,y,1,1)
+			ctx.fillRect(10,10,canvas.width-20,canvas.height-20)*/
+		</script>
+	</canvas>
+</html>
